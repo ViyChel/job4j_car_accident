@@ -12,17 +12,23 @@
 </head>
 <body>
 <div class="container">
-    <h3>Пользователи</h3>
+    <h3>Список автонарушений</h3>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Имя</th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Text</th>
+            <th>Address</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="user" items="${users}">
+        <c:forEach var="accident" items="${accidents}">
             <tr>
-                <td><c:out value="${user}"/></td>
+                <td><c:out value="${accident.id}"/></td>
+                <td><c:out value="${accident.name}"/></td>
+                <td><c:out value="${accident.text}"/></td>
+                <td><c:out value="${accident.address}"/></td>
             </tr>
         </c:forEach>
         </tbody>
