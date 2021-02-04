@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 /**
  * Class IndexControl.
  *
@@ -15,7 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexControl {
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("user", "Petr Arsentev");
+        List<String> users = List.of("Petr", "Ivan", "Oleg", "Olga");
+        model.addAttribute("users", users);
         return "index";
     }
 }
