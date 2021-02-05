@@ -32,4 +32,8 @@ public class AccidentMem {
     public Collection<Accident> findAll() {
         return accidents.values();
     }
+
+    public void create(Accident accident) {
+        accidents.put(accident.getId(), accident);
+    }
 }
