@@ -30,6 +30,19 @@
             <div class="card-body">
                 <form action="<c:url value='/save?id=${accident.id}'/>" method='POST'>
                     <div class="form-group">
+                        <label for="type.id">Тип</label>
+                        <select name="type.id" id="type.id">
+                            <c:forEach var="type" items="${types}">
+                                <c:if test="${accident.type == type}">
+                                    <option value="${type.id}" selected>${type.name}</option>
+                                </c:if>
+                                <c:if test="${accident.type != type}">
+                                    <option value="${type.id}">${type.name}</option>
+                                </c:if>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="name">Название</label>
                         <input type="text" class="form-control" id="name" name="name" value="${accident.name}">
                     </div>

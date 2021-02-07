@@ -6,21 +6,24 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * Class Accident.
+ * Class AccidentType.
  *
  * @author Vitaly Yagufarov (for.viy@gmail.com)
  * @version 1.0
- * @since 04.02.2021
+ * @since 08.02.2021
  */
 @Component
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Accident {
-    private int id;
+public class AccidentType {
     private String name;
-    private String text;
-    private String address;
-    private AccidentType type;
+    private int id;
 
+    public static AccidentType of(int id, String name) {
+        AccidentType type = new AccidentType();
+        type.id = id;
+        type.name = name;
+        return type;
+    }
 }
