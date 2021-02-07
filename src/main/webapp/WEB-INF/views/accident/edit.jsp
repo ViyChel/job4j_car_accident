@@ -28,18 +28,18 @@
                 Редактирование нарушения
             </div>
             <div class="card-body">
-                <form action="<c:url value='/edit'/>" method='POST'>
+                <form action="<c:url value='/save?id=${accident.id}'/>" method='POST'>
                     <div class="form-group">
                         <label for="name">Название</label>
-                        <input type="text" class="form-control" id="name" name="name" value="">
+                        <input type="text" class="form-control" id="name" name="name" value="${accident.name}">
                     </div>
                     <div class="form-group">
                         <label for="description">Описание</label>
-                        <input type="text" class="form-control" id="description" name="text" value="">
+                        <input type="text" class="form-control" id="description" name="text" value="${accident.text}">
                     </div>
                     <div class="form-group">
                         <label for="address">Адрес</label>
-                        <input type="text" class="form-control" id="address" name="address" value="">
+                        <input type="text" class="form-control" id="address" name="address" value="${accident.address}">
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Сохранить</button>
