@@ -4,9 +4,10 @@ import lombok.Data;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.model.Rule;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class AccidentMem.
@@ -19,22 +20,30 @@ import java.util.HashMap;
 @Repository
 public class AccidentMem {
     private final HashMap<Integer, Accident> accidents = new HashMap<>();
-    private final HashMap<Integer, AccidentType> accidentsType = new HashMap<>();
+    private final HashMap<Integer, AccidentType> accidentsTypes = new HashMap<>();
+    private final HashMap<Integer, Rule> rules = new HashMap<>();
 
     public AccidentMem() {
         AccidentType twoCar = AccidentType.of(1, "Две машины");
         AccidentType carAndMan = AccidentType.of(2, "Машина и человек");
         AccidentType carAndBike = AccidentType.of(3, "Машина и велосипед");
-        Accident accident1 = new Accident(1, "name1", "test1", "address1", twoCar);
-        Accident accident2 = new Accident(2, "name2", "test2", "address2", carAndMan);
-        Accident accident3 = new Accident(3, "name3", "test3", "address3", carAndBike);
+        Rule rule1 = Rule.of(1, "Статья. 1");
+        Rule rule2 = Rule.of(2, "Статья. 2");
+        Rule rule3 = Rule.of(3, "Статья. 3");
+        Set<Rule> accidentRules = new HashSet<>(Arrays.asList(rule1, rule3));
+        Accident accident1 = new Accident(1, "name1", "test1", "address1", twoCar, accidentRules);
+        Accident accident2 = new Accident(2, "name2", "test2", "address2", carAndMan, accidentRules);
+        Accident accident3 = new Accident(3, "name3", "test3", "address3", carAndBike, accidentRules);
 
         accidents.put(accident1.getId(), accident1);
         accidents.put(accident2.getId(), accident2);
         accidents.put(accident3.getId(), accident3);
-        accidentsType.put(twoCar.getId(), twoCar);
-        accidentsType.put(carAndMan.getId(), carAndMan);
-        accidentsType.put(carAndBike.getId(), carAndBike);
+        accidentsTypes.put(twoCar.getId(), twoCar);
+        accidentsTypes.put(carAndMan.getId(), carAndMan);
+        accidentsTypes.put(carAndBike.getId(), carAndBike);
+        rules.put(rule1.getId(), rule1);
+        rules.put(rule2.getId(), rule2);
+        rules.put(rule3.getId(), rule3);
     }
 
     public Collection<Accident> findAll() {
@@ -50,10 +59,25 @@ public class AccidentMem {
     }
 
     public AccidentType findTypeById(int id) {
-        return accidentsType.get(id);
+        return accidentsTypes.get(id);
     }
 
-    public Collection<AccidentType> findTypeAll() {
-        return accidentsType.values();
+    public Collection<AccidentType> findAllTypes() {
+        return accidentsTypes.values();
+    }
+
+    public Collection<Rule> findAllRules() {
+        return rules.values();
+    }
+
+    public Rule findRuleById(int id) {
+        return rules.get(id);
+    }
+
+    public Set<Rule> arrToSet(String[] ids) {
+        return Arrays.stream(ids)
+                .map(Integer::parseInt)
+                .map(this::findRuleById)
+                .collect(Collectors.toSet());
     }
 }

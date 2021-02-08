@@ -30,8 +30,20 @@
             <div class="card-body">
                 <form action="<c:url value='/save?id=${accident.id}'/>" method='POST'>
                     <div class="form-group">
-                        <label for="type.id">Тип</label>
-                        <select name="type.id" id="type.id">
+                        <label for="name">Название</label>
+                        <input type="text" class="form-control" id="name" name="name" value="${accident.name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rIds">Статьи</label>
+                        <select name="rIds" id="rIds" multiple required>
+                            <c:forEach var="rule" items="${rules}" >
+                                <option value="${rule.id}">${rule.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="type.id">Статьи</label>
+                        <select name="type.id" id="type.id" required>
                             <c:forEach var="type" items="${types}">
                                 <c:if test="${accident.type == type}">
                                     <option value="${type.id}" selected>${type.name}</option>
@@ -43,16 +55,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="name">Название</label>
-                        <input type="text" class="form-control" id="name" name="name" value="${accident.name}">
-                    </div>
-                    <div class="form-group">
                         <label for="description">Описание</label>
-                        <input type="text" class="form-control" id="description" name="text" value="${accident.text}">
+                        <input type="text" class="form-control" id="description" name="text" value="${accident.text}" required>
                     </div>
                     <div class="form-group">
                         <label for="address">Адрес</label>
-                        <input type="text" class="form-control" id="address" name="address" value="${accident.address}">
+                        <input type="text" class="form-control" id="address" name="address" value="${accident.address}" required>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Сохранить</button>

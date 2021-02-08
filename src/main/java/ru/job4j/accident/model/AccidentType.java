@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
  * @since 08.02.2021
  */
 @Component
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class AccidentType {
     private String name;

@@ -30,24 +30,33 @@
             <div class="card-body">
                 <form action="<c:url value='/save'/>" method='POST'>
                     <div class="form-group">
+                        <label for="name">Название</label>
+                        <input type="text" class="form-control" id="name" name="name" value="" required>
+                    </div>
+                    <div class="form-group">
                         <label for="type.id">Тип</label>
-                        <select name="type.id" id="type.id">
+                        <select name="type.id" id="type.id" required>
                             <c:forEach var="type" items="${types}" >
                                 <option value="${type.id}">${type.name}</option>
                             </c:forEach>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="name">Название</label>
-                        <input type="text" class="form-control" id="name" name="name" value="">
+                        <label for="rIds">Статьи</label>
+                        <select name="rIds" id="rIds" multiple required>
+                            <c:forEach var="rule" items="${rules}" >
+                                <option value="${rule.id}">${rule.name}</option>
+                            </c:forEach>
+                        </select>
                     </div>
+
                     <div class="form-group">
                         <label for="description">Описание</label>
-                        <input type="text" class="form-control" id="description" name="text" value="">
+                        <input type="text" class="form-control" id="description" name="text" value="" required>
                     </div>
                     <div class="form-group">
                         <label for="address">Адрес</label>
-                        <input type="text" class="form-control" id="address" name="address" value="">
+                        <input type="text" class="form-control" id="address" name="address" value="" required>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Сохранить</button>
