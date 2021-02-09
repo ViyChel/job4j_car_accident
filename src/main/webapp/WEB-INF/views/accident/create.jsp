@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <label for="rIds">Статьи</label>
-                        <select name="rIds" id="rIds" multiple required>
+                        <select name="rIds" id="rIds" multiple >
                             <c:forEach var="rule" items="${rules}" >
                                 <option value="${rule.id}">${rule.name}</option>
                             </c:forEach>
