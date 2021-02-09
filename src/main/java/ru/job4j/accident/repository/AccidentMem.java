@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @since 04.02.2021
  */
 @Data
-@Repository
+//@Repository
 public class AccidentMem {
     private final HashMap<Integer, Accident> accidents = new HashMap<>();
     private final HashMap<Integer, AccidentType> accidentsTypes = new HashMap<>();
@@ -72,12 +72,5 @@ public class AccidentMem {
 
     public Rule findRuleById(int id) {
         return rules.get(id);
-    }
-
-    public Set<Rule> arrToSet(String[] ids) {
-        return Arrays.stream(ids)
-                .map(Integer::parseInt)
-                .map(this::findRuleById)
-                .collect(Collectors.toSet());
     }
 }

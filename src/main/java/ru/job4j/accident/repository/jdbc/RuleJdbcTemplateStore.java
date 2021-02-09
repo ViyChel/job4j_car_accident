@@ -1,8 +1,8 @@
-package ru.job4j.accident.repository;
+package ru.job4j.accident.repository.jdbc;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Rule;
+import ru.job4j.accident.repository.Store;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * @since 09.02.2021
  */
-@Repository
+//@Repository
 public class RuleJdbcTemplateStore implements Store<Rule> {
     private final JdbcTemplate jdbc;
 

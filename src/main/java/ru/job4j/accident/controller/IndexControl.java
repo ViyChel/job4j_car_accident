@@ -4,7 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.repository.AccidentJdbcTemplateStore;
+import ru.job4j.accident.repository.hibernate.AccidentHibernateStore;
+import ru.job4j.accident.repository.jdbc.AccidentJdbcTemplateStore;
 import ru.job4j.accident.repository.Store;
 
 import java.util.Collection;
@@ -20,7 +21,7 @@ import java.util.Collection;
 public class IndexControl {
     private final Store store;
 
-    public IndexControl(AccidentJdbcTemplateStore store) {
+    public IndexControl(AccidentHibernateStore store) {
         this.store = store;
     }
 

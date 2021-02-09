@@ -1,18 +1,15 @@
-package ru.job4j.accident.repository;
+package ru.job4j.accident.repository.jdbc;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
+import ru.job4j.accident.repository.Store;
 
 import java.sql.PreparedStatement;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Class AccidentJdbcTemplate.
@@ -21,7 +18,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 09.02.2021
  */
-@Repository
+//@Repository
 public class AccidentJdbcTemplateStore implements Store<Accident> {
     private final JdbcTemplate jdbc;
     private final Store<AccidentType> typesStore;
@@ -93,16 +90,7 @@ public class AccidentJdbcTemplateStore implements Store<Accident> {
                     accident.setAddress(rs.getString("address"));
                     AccidentType accidentType = typesStore.findById(rs.getInt("type_id"));
                     accident.setType(accidentType);
-                    /*Set<Rule> rules = rulesStore.findAll();
-                    accident.setName(rs.getString("rule_id"));*/
                     return accident;
                 });
-    }
-
-    public Set<Rule> arrToSet(String[] ids) {
-        return Arrays.stream(ids)
-                .map(Integer::parseInt)
-                .map(rulesStore::findById)
-                .collect(Collectors.toSet());
     }
 }

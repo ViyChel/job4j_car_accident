@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentJdbcTemplateStore;
-import ru.job4j.accident.repository.AccidentTypeJdbcTemplateStore;
-import ru.job4j.accident.repository.RuleJdbcTemplateStore;
 import ru.job4j.accident.repository.Store;
+import ru.job4j.accident.repository.hibernate.AccidentHibernateStore;
+import ru.job4j.accident.repository.hibernate.AccidentTypeHibernateStore;
+import ru.job4j.accident.repository.hibernate.RuleHibernateStore;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,12 +26,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class AccidentControl {
-    private final AccidentJdbcTemplateStore accidents;
+    private final AccidentHibernateStore accidents;
     private final Store<AccidentType> typeStore;
     private final Store<Rule> ruleStore;
 
-    public AccidentControl(AccidentJdbcTemplateStore accidents, AccidentTypeJdbcTemplateStore typeStore,
-                           RuleJdbcTemplateStore ruleStore) {
+    public AccidentControl(AccidentHibernateStore accidents, AccidentTypeHibernateStore typeStore,
+                           RuleHibernateStore ruleStore) {
         this.accidents = accidents;
         this.typeStore = typeStore;
         this.ruleStore = ruleStore;
@@ -49,11 +49,26 @@ public class AccidentControl {
         accident.setType(typeStore.findById(accident.getType().getId()));
         String[] ids = req.getParameterValues("rIds");
         if (ids != null) {
-            accident.setRules(accidents.arrToSet(ids));
+            accident.setRules(accidents.arrToSet(ids, ruleStore));
         }
-        accidents.create(accident);
+        if (accident.getId() == 0) {
+            accidents.create(accident);
+        } else {
+            accidents.save(accident);
+        }
         return "redirect:/";
     }
+/*
+    @PostMapping("/update")
+    public String update(@ModelAttribute Accident accident, HttpServletRequest req) {
+        accident.setType(typeStore.findById(accident.getType().getId()));
+        String[] ids = req.getParameterValues("rIds");
+        if (ids != null) {
+            accident.setRules(accidents.arrToSet(ids, ruleStore));
+        }
+        accidents.save(accident);
+        return "redirect:/";
+    }*/
 
     @GetMapping("/edit")
     public String update(@RequestParam("id") int id, Model model) {

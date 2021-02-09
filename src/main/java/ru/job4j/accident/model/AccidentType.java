@@ -1,9 +1,9 @@
 package ru.job4j.accident.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 
 /**
  * Class AccidentType.
@@ -14,9 +14,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
+@Entity
+@Table(name = "types")
 public class AccidentType {
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
+
 
     public static AccidentType of(int id, String name) {
         AccidentType type = new AccidentType();

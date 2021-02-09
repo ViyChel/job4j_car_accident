@@ -3,6 +3,8 @@ package ru.job4j.accident.model;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+
 /**
  * Class Rule.
  *
@@ -12,7 +14,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
+@Entity
+@Table(name = "rules")
 public class Rule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 

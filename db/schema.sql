@@ -21,7 +21,6 @@ CREATE TABLE accident
 
 CREATE TABLE accident_rules
 (
-    id          serial primary key,
     accident_id int REFERENCES accident (id),
     rule_id     int REFERENCES rules (id)
 );
