@@ -31,9 +31,13 @@ public class AccidentMem {
         Rule rule2 = Rule.of(2, "Статья. 2");
         Rule rule3 = Rule.of(3, "Статья. 3");
         Set<Rule> accidentRules = new HashSet<>(Arrays.asList(rule1, rule3));
-        Accident accident1 = new Accident(1, "name1", "test1", "address1", twoCar, accidentRules);
+        /*Accident accident1 = new Accident(1, "name1", "test1", "address1", twoCar, accidentRules);
         Accident accident2 = new Accident(2, "name2", "test2", "address2", carAndMan, accidentRules);
-        Accident accident3 = new Accident(3, "name3", "test3", "address3", carAndBike, accidentRules);
+        Accident accident3 = new Accident(3, "name3", "test3", "address3", carAndBike, accidentRules);*/
+
+        Accident accident1 = new Accident();
+        Accident accident2 = new Accident();
+        Accident accident3 = new Accident();
 
         accidents.put(accident1.getId(), accident1);
         accidents.put(accident2.getId(), accident2);

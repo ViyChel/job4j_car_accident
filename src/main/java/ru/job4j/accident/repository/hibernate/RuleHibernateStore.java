@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0
  * @since 10.02.2021
  */
-@Repository
+//@Repository
 public class RuleHibernateStore implements Store<Rule> {
     private final SessionFactory sf;
 

@@ -4,11 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.repository.hibernate.AccidentHibernateStore;
-import ru.job4j.accident.repository.jdbc.AccidentJdbcTemplateStore;
-import ru.job4j.accident.repository.Store;
+import ru.job4j.accident.repository.springdata.AccidentRepository;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class IndexControl.
@@ -19,16 +18,17 @@ import java.util.Collection;
  */
 @Controller
 public class IndexControl {
-    private final Store store;
+    private final AccidentRepository accidents;
 
-    public IndexControl(AccidentHibernateStore store) {
-        this.store = store;
+    public IndexControl(AccidentRepository accidents) {
+        this.accidents = accidents;
     }
 
     @GetMapping("/")
     public String index(Model model) {
-        Collection<Accident> list = store.findAll();
-        model.addAttribute("accidents", list);
+        List<Accident> res = new ArrayList<>();
+        accidents.findAllWithRules().forEach(res::add);
+        model.addAttribute("accidents", res);
         return "index";
     }
 }

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 10.02.2021
  */
-@Repository
+//@Repository
 @Slf4j
 public class AccidentHibernateStore implements Store<Accident> {
     private final SessionFactory sf;

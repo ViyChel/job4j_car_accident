@@ -17,7 +17,7 @@ import java.util.function.Function;
  * @version 1.0
  * @since 10.02.2021
  */
-@Repository
+//@Repository
 public class AccidentTypeHibernateStore implements Store<AccidentType> {
     private final SessionFactory sf;
 

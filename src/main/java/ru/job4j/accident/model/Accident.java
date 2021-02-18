@@ -3,11 +3,10 @@ package ru.job4j.accident.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -18,7 +17,6 @@ import java.util.Set;
  * @since 04.02.2021
  */
 @Component
-@Scope("prototype")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -28,18 +26,29 @@ public class Accident {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "text")
     private String text;
+    @Column(name = "address")
     private String address;
     @ManyToOne
     @JoinColumn(name = "type_id")
     private AccidentType type;
-    //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "accident_rules",
-            joinColumns = {@JoinColumn(name = "accident_id")},
-            inverseJoinColumns = {@JoinColumn(name = "rule_id")})
-    private Set<Rule> rules = new HashSet<>();
+            joinColumns = {@JoinColumn(name = "accident_id", nullable = false, updatable = false,
+                    referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "rule_id", nullable = false, updatable = false,
+                    referencedColumnName = "id")})
+    private Set<Rule> rules = new LinkedHashSet<>();
 
+    public Accident(String name, String text, String address, AccidentType type, Set<Rule> rules) {
+        this.name = name;
+        this.text = text;
+        this.address = address;
+        this.type = type;
+        this.rules = rules;
+    }
 }
