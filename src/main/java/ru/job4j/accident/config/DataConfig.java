@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  * @version 1.0
  * @since 11.02.2021
  */
-@Configuration
+//@Configuration
 @PropertySource("classpath:app.properties")
 @EnableJpaRepositories("ru.job4j.accident.repository")
 @EnableTransactionManagement
